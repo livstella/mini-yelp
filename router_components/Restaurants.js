@@ -9,6 +9,14 @@ const displayRestaurants = (req, res, next) => {
     .catch((e) => console.log(e));
 };
 
+const displayRestaurantID = (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM restaurant WHERE id=$1;", [id])
+    .then((data) => res.json(data))
+    .catch((e) => res.sendStatus(404));
+};
+
 const postRestaurants = (req, res) => {
   const { name, adress } = req.body;
   pool
@@ -21,6 +29,7 @@ const postRestaurants = (req, res) => {
 };
 
 router.get("/", displayRestaurants);
+router.get("/:id", displayRestaurantID);
 router.post("/", postRestaurants);
 
 module.exports = router;
