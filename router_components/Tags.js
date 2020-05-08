@@ -9,6 +9,14 @@ const displayTags = (req, res, next) => {
     .catch((e) => console.log(e));
 };
 
+const displayTagID = (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM restaurant WHERE id=$1;", [id])
+    .then((data) => res.json(data))
+    .catch((e) => res.sendStatus(404));
+};
+
 const postTags = (req, res) => {
   const { name } = req.body;
   pool
@@ -18,6 +26,7 @@ const postTags = (req, res) => {
 };
 
 router.get("/", displayTags);
+router.get("/:id", displayTagID);
 router.post("/", postTags);
 
 module.exports = router;
