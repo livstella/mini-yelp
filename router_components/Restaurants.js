@@ -4,7 +4,7 @@ const pool = require("../database");
 
 const displayRestaurants = (req, res, next) => {
   pool
-    .query('SELECT * FROM "tag";')
+    .query('SELECT * FROM "restaurant";')
     .then((data) => res.send(data))
     .catch((e) => console.log(e));
 };
