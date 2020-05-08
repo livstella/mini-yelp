@@ -9,6 +9,15 @@ const displayTags = (req, res, next) => {
     .catch((e) => console.log(e));
 };
 
+const postTags = (req, res) => {
+  const { name } = req.body;
+  pool
+    .query("INSERT INTO tag (name) VALUES ($1);", [name])
+    .then((data) => res.json(data.rows))
+    .catch((e) => res.sendStatus(404));
+};
+
 router.get("/", displayTags);
+router.post("/", postTags);
 
 module.exports = router;
