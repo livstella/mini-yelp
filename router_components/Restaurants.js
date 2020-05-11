@@ -7,9 +7,24 @@ const pool = require("../database");
 const displayRecipes = (req, res, next) => {
   pool
     .query('SELECT * FROM "recipe";')
-    .then((data) => res.send(data))
+    .then((data) => res.json(data))
     .catch((e) => console.log(e));
 };
+
+const displayCategory = (req, res, next) => {
+  pool
+    .query('SELECT * FROM "category";')
+    .then((data) => res.json(data))
+    .catch((e) => console.log(e));
+};
+
+const displayCuisine = (req, res, next) => {
+  pool
+    .query('SELECT * FROM "cuisine";')
+    .then((data) => res.json(data))
+    .catch((e) => console.log(e));
+};
+
 
 /*const displayRestaurants = (req, res, next) => {
   pool
@@ -42,5 +57,7 @@ const postRestaurants = (req, res) => {
 //router.post("/", postRestaurants);
 
 router.get("/", displayRecipes);
+router.get("/category", displayCategory);
+router.get("/cuisine", displayCategory);
 
 module.exports = router;
