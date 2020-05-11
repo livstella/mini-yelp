@@ -2,7 +2,16 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../database");
 
-const displayRestaurants = (req, res, next) => {
+
+
+const displayRecipes = (req, res, next) => {
+  pool
+    .query('SELECT * FROM "recipe";')
+    .then((data) => res.send(data))
+    .catch((e) => console.log(e));
+};
+
+/*const displayRestaurants = (req, res, next) => {
   pool
     .query('SELECT * FROM "restaurant";')
     .then((data) => res.send(data))
@@ -27,9 +36,11 @@ const postRestaurants = (req, res) => {
     .then((data) => res.json(data.rows))
     .catch((e) => res.sendStatus(404));
 };
+*/
+//router.get("/", displayRestaurants);
+//router.get("/:id", displayRestaurantID);
+//router.post("/", postRestaurants);
 
-router.get("/", displayRestaurants);
-router.get("/:id", displayRestaurantID);
-router.post("/", postRestaurants);
+router.get("/", displayRecipes);
 
 module.exports = router;
