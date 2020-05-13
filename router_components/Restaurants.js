@@ -25,6 +25,14 @@ const displayCuisine = (req, res, next) => {
     .catch((e) => console.log(e));
 };
 
+const ingredient = (req, res, next) => {
+  pool
+    .query('SELECT recipe_id, quantity, measurement_unit.name, ingredient.name FROM list_ingredients INNER JOIN recipe ON recipe.id = list_ingredients.recipe_id INNER JOIN measurement_unit ON measurement_unit.id=list_ingredients.unit_id INNER JOIN ingredient ON ingredient.id=list_ingredients.ingredient_id')
+    .then((data) => res.json(data))
+    .catch((e) => console.log(e));
+};
+
+
 
 /*const displayRestaurants = (req, res, next) => {
   pool
@@ -58,6 +66,7 @@ const postRestaurants = (req, res) => {
 
 router.get("/", displayRecipes);
 router.get("/category", displayCategory);
-router.get("/cuisine", displayCategory);
+router.get("/cuisine", displayCuisine);
+router.get("/ingredients", ingredient);
 
 module.exports = router;
